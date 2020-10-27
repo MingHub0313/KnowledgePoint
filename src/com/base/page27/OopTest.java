@@ -53,11 +53,54 @@ public class OopTest {
 	 * 	2. 线程安全性 StringBuilder(非线程安全)  StringBuffer(线程安全的)
 	 */
 
-
 	/**
-	 *  Question 1.final 不可变?
+	 * String 中的 hashCode 以及 toString
+	 * Question 1.String 有重写 Object 的 hashCode 和 toString吗? 如果重写 equals 不重写 hashCode会出现什么问题?
+	 * 		答案: 	String 重写了 Object 的 hashCode 和 toString.
+	 * 				当equals方法被重写时,通常有必要重写hashCode方法,以维护hashCode方法的常规协定,该协定声明相对等的两个对象必须有相同的hashCode
+	 * 			总结: 	两个对象的 equals 为 true 时,两个对象的 hashCode 为 true
+	 * 					两个对象的 hashCode 为 false 时 , 两个对象的 equals 必定为 false
+	 * 					两个对象的 hashCode 为 true 时,两个对象的 equals 不一定为 true
+	 * 				在存储散列集合(Set集合),如果原对象 equals(新对象),但是没有对hashCode重写,即两个对象拥有不同的hashCode,
+	 * 				则在集合中将会存储两个值相同的对象,从而导致混淆.因此在重写 equals 方法时,必须重写hashCode方法.
+	 * Question 2.大家都知道源码怎么实现的.故意构造相同的 hash的字符串进行攻击,怎么处理?那jdk7怎么办?
+	 * 		怎么处理构造相同hash的字符串进行攻击?
+	 * 		分析:	当客户端提交一个请求并附带参数的时候,web应用服务器会把我们的参数转化成一个HashMap存储(key,value)
+	 * 				但是物理存储结构是不同的,key值会被转化为 hashCode,这个hashCode有会被转成数组的下标: 0-->value
+	 * 				不同的String 就会产生相同的hashCode而导致的碰撞,碰撞后的物理存储结构可能如下: 0-->value1-->value2
+	 *
+	 * 		解决方案:	1.限制 post 和 get 的参数个数 越少越好
+	 * 					2.限制 post 数据包的大小
+	 * 					3.WAF
+	 *
+	 * 		jdk7如何处理hashCode字符串攻击?
+	 * 			HashMap会动态的使用一个专门的 TreeMap实现来替换它.
 	 *
 	 */
+
+
+	/**
+	 *  Question 3.String 不可变?  --final 修饰
+	 *  首先 因为 String 不可变,如果 String 不是 final,那么久可以有子类继承String类 ,然后子类覆盖其方法,使得这些方法可以修改字符串
+	 *  这样就违背了 String 的不可变性.
+	 *
+	 *  不可变原因:
+	 *  			1).提高效率: 比如一个字符串 String s1 = "abc" , "abc"被放到常量池里面去了, 然后再 String s2 = "abc"
+	 *  			并不会复制字符串"abc",只会多个引用指向原来那个常量,这样就提高了效率,而这一前提是 String 不可变.
+	 *  			如果可变,那么多个引用指向同一个字符串常量,我们就可以通过一个引用改变字符串,然后其他引用就被影响了
+	 *  			2).安全: String 常被用来表示 url,文件路径
+	 *  			3).String不可变,那么他的 hashCode 就一样,不用每次重新计算了.
+	 *  注意:
+	 *  	1.String 类是被 final 进行修饰的 ,不能被继承
+	 *  	2.在用'+'链接字符串的时候会创建新的字符串(对象)
+	 *  	3.String s = new String("Hello World"); 可能创建两个对象 也可能创建一个对象.
+	 *  		如果静态区中有 "Hello World"字符串常量,则仅仅在堆中创建一个对象.
+	 *  		如果静态区中没有 则堆上和静态区中都需要创建对象.
+	 *  	4.在java 中,通过使用 '+' 符号串联字符串的时候,实际上底层会转成 StringBuild 实例的 append()方法来实现的.
+	 *
+	 */
+
+
 
 	private Logger log= LoggerFactory.getLogger(OopTest.class);
 
