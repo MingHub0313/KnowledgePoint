@@ -22,7 +22,7 @@ public class ReadFileTest {
 	 * 			2).通过这条线路读取信息:  new FileInputStream(file); 目前这个信息已经读进内存中
 	 * 			3).此时就需要 	InputStreamReader()这个方法进行解读刚才装进内存中的数据
 	 * 			4).解读完,然后输出.要转换成IO可以识别的数据.需要调用字节码读取的方法 BufferedReader().
-	 * 				获取该对象下的 readline()方法读取文件中的每一行数据.
+	 * 				获取该对象下的 readLine()方法读取文件中的每一行数据.
 	 */
 
 	@Test

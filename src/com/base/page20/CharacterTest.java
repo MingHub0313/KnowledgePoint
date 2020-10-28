@@ -1,9 +1,10 @@
 package com.base.page20;
 
-import com.base.page17.BaseDataTest;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 /**
  * @Name CharacterTest
@@ -15,9 +16,11 @@ public class CharacterTest {
 	 * 重写	-- 发生在父子类中.可以说子类重新定义了父类的方法.重写必须有相同的方法名 参数列表 和返回类型
 	 * 		1.不能存在同一个类中 .存在于 继承 或 实现关系中;
 	 * 		2.方法名相同 参数列表相同 返回值相同;
-	 * 		3.子类方法的访问修饰符要大于父类的;
-	 * 		4.子类的检查异常类型要小于父类的检查异常.
-	 * 重载	-- 发生在同一类里面两个或者多个方法的方法名相同但参数不同的情况
+	 * 		3.子类方法的访问修饰符要大于父类的;  【子类不能降低其父类的方法访问权限】
+	 * 		如果在父类中的是 public 的方法,子类将其降低访问权限为 private 那么子类中重写以后的方法外部对象就不可访问---破坏了继承的含义
+	 * 		4.子类的检查异常类型要小于等于父类的检查异常. 【运用多态性的原理】 ---  编译看左边  运行看右边.	执行的是子类中重写的方法
+	 * 		如果子类抛出的异常无法被父类接收(即子类抛出的异常大于 try catch 中的异常,那么是无法处理异常,无法接收)
+	 * 重载	-- 发生在同一类里面两个或者多个方法的方法名相同但参数不同[个数,顺序 类型不同]的情况
 	 *		1.可以在一个类中也可以在继承关系的类中;
 	 *		2.名相同;
 	 *		3.参数类型不同(个数、顺序、类型) 和方法的返回值类型无关.
@@ -43,7 +46,7 @@ public class CharacterTest {
 	 * 		方法重载(overload):实现的是编译时的多态性(前绑定);
 	 * 		方法重写(override):实现的是运行时的多态性(后绑定).
 	 * 		要实现多态需要做两件事情:
-	 * 								1.方法重写 -- 子类集成父类并重写父类中已有的或抽象方法
+	 * 								1.方法重写 -- 子类继承父类并重写父类中已有的或抽象方法
 	 * 								2.对象构造 -- 用父类型指向子类型对象,这样同样的引用调用同样的方法就会根据子类对象的不同而表现出不同的行为
 	 */
 
@@ -65,6 +68,35 @@ public class CharacterTest {
 	 */
 	@Test
 	public void test(){
+		/*CharacterTest characterTest = new CharacterTest();
+		characterTest.display(new SuperClass());*/
 
+
+		SuperClass superClass = new SubClass();
+		try{
+			superClass.method();
+			/**
+			 * 在编译过程中 superClass.method() 时 可以认为引用的父类中的方法
+			 * 因此此时会抛出 IO异常,在 catch语句中进行处理;
+			 * 在运行的时候,此时引用的子类中的方法,会抛出 FileNotFoundException异常
+			 * 但 catch 中的异常处理IO异常包括了 该异常,相当于一同处理了,因此程序能够运行
+			 *
+			 * 如果此时反过来,也就是子类抛出的异常比父类的异常大
+			 * 子类抛出的异常是IO异常 由于catch 中处理的是 FileNotFoundException异常
+			 * 那么在运行的时候,IO异常将无法解决,就会出现错误.
+			 */
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+	}
+
+	public void display(SuperClass s){
+		try {
+			s.method();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
