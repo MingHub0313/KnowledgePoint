@@ -1,0 +1,2 @@
+className = com.base.page30.Student5
+methodName = show
