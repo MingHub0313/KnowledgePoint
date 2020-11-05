@@ -15,7 +15,7 @@ public class Person {
     static Book book2;
 
     /**
-     * 将此 static 代码块拆开 即使该Person类的 成员变量
+     * 将此 static 代码块拆开 即是该Person类的 成员变量
      */
     static {
         book2 = new Book("static成员book2成员变量初始化");

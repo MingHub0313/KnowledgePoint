@@ -44,10 +44,10 @@ public class OopTest {
 	 * 一、String StringBuffer StringBuilder的区别:
 	 * 	1.都是final类,都不允许被继承;
 	 * 	2.String 长度是不可变的 ; StringBuffer 、StringBuilder;
-	 * 	3.StringBuffer 是线程安全的;StringBuilder 是线程不安全的.但它们两个所有的方法都是相同的,只是 StringBuilder的类在方法上添加 synchronized
+	 * 	3.StringBuffer 是线程安全的;StringBuilder 是线程不安全的.但它们两个所有的方法都是相同的,只是 StringBuffer的类在方法上添加 synchronized
 	 * 	4.StringBuilder 比 StringBuffer 拥有更好的性能.
 	 * 	5.如果一个String 类型的字符串,在编译时就可以确定是一个字符串常量,则编译完成之后,字符串会自动拼接成一个常量.
-	 * 	此时的 String 速度 比 StringBuilder 和 StringBuffer 的性能好的多.
+	 * 		此时的 String 速度 比 StringBuilder 和 StringBuffer 的性能好的多.
 	 *
 	 * 	1、运算速度比较 StringBuilder > StringBuffer > String
 	 * 	2. 线程安全性 StringBuilder(非线程安全)  StringBuffer(线程安全的)
@@ -113,7 +113,7 @@ public class OopTest {
 		// 而第一个创建的str对象被JVM的垃圾回收机制（GC）回收掉.所以str实际上并没有被更改,而是重新创建一个新的对象.
 		str = str + "de";
 		System.out.println(str);
-		// 3.Java中对String对象进行的操作实际上是一个不断创建并回收对象的过程 因此在运行速度上很慢.
+		// 3.Java中对String对象进行的操作实际上是一个【不断创建并回收对象的过程】 因此在运行速度上很慢.
 	}
 
 	@Test
