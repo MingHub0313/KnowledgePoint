@@ -1,5 +1,12 @@
 package com.zmm.day0615;
 
+import org.junit.Test;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -8,6 +15,52 @@ import java.util.Objects;
  * @Created by 2020/6/15 0015
  */
 public class MyHashMap<K,V> implements MyMap<K,V>{
+
+
+	/**
+	 * HashMap 类中有以下主要成员变量：
+	 * ● 	transient int size;
+	 * 		○记录 Map 中 K-V(键值对)对的个数
+	 * ●	loadFactor
+	 * 		○ 装载因子 用来衡量 HashMap 满的程度。loadFactor 的默认值为 0.75f
+	 * 			(static final float DEFAULT_LOAD_FACTOR = 0.75f;)
+	 * 	● 	int threshold;	
+	 * 		○ 临界值 当实际 KV 个数超过 threshold 时 HashMap 会将容量扩容 threshold ＝ 容量 * 加载因子
+	 * 			(static final int TREE_THRESHOLD = 8;)	
+	 * 	●	capacity;
+	 * 		○ 容量 如果不指定 默认容量是 16
+	 * 			(static final int DEFAULT_INITIAL_CAPACITY = 1 << 4;)
+	 * 	
+	 * 	HashMap 中的size 和 capacity 之间的区别:
+	 * 		HashMap就像是一个 "桶",那么 capacity 就是这个 "桶" ,当前最多可以装多少元素,而 size 表示这个桶已经装了多少元素.
+	 * 	
+	 * 	如果开发者通过构造函数之指定一个数字作为容量,那么Hash会选择大于该数字的第一个 2的幂 作为容量.
+	 * 		(1 -> 1、7 -> 8、9 -> 16)
+	 * 	
+	 * 	loadFactor 和 threshold:
+	 * 		HashMap有扩容机制,就是当达到扩容条件时会进行扩容,从16扩容到32、64、128...
+	 * 		当 HashMap 中的元素个数(size)超过临界值(threshold)时就会自动扩容.
+	 * 			threshold = loadFactor * capacity.
+	 * 		
+	 * 		loadFactor 是装载因子,表示 HashMap 满的程度,默认值为 0.75f
+	 * 		设置成 0.75有一个好处,那就是0.75 正好是 3/4 ,而 capacity 又是 2的幂.所以 两个数的乘积都是整数.
+	 */
+
+
+
+	public static void main(String[] args) throws Exception {
+		Map<String, String> map = new HashMap<>();
+		map.put("hello", "ming");
+
+		Class<?> mapType = map.getClass();
+		Method capacity = mapType.getDeclaredMethod("capacity");
+		capacity.setAccessible(true);
+		System.out.println("capacity : " + capacity.invoke(map));
+
+		Field size = mapType.getDeclaredField("size");
+		size.setAccessible(true);
+		System.out.println("size : " + size.get(map));
+	}
 
 	/**
 	 * 根据Hash 算法实现,理论上只需要一次查询即可定位到指定数据 (Hash 冲突)
