@@ -1,5 +1,6 @@
 package com.zmm;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -15,6 +16,18 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println(getEndTime());
+
+        ArrayList arrayList = new ArrayList(5);
+        arrayList.add(2);
+        arrayList.add(5);
+        arrayList.add(8);
+
+        System.out.println("使用 [add] 方法后的size:===========>"+arrayList.size());
+
+        System.out.println("使用 [get] 方法得到的元素:===========>"+arrayList.get(2));
+
+        arrayList.set(3,10);
+        System.out.println("使用 [set] 方法后的size:===========>"+arrayList.size());
     }
 
     private static Long getEndTime() {
