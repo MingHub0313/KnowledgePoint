@@ -9,9 +9,11 @@ package com.base.page31;
  */
 public class A1 {
     private static A1 a = new A1();
+
     static {
         System.out.print("static ");
     }
+
     {
         System.out.print("A1 ");
     }

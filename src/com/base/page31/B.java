@@ -7,12 +7,12 @@ package com.base.page31;
  * @Description B类
  * @Version 1.0.0
  */
-public class B extends A{
-    public B(){
+public class B extends A {
+    public B() {
         System.out.println("B ");
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         // A a = new A();
         B b = new B();
         // 打印结果 : A static AB

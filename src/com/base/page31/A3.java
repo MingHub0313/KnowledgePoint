@@ -9,7 +9,7 @@ package com.base.page31;
  */
 public class A3 {
 
-    public A3(){
+    public A3() {
         System.out.print("(A3) ");
     }
 

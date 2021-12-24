@@ -348,7 +348,7 @@ public class ReflectTest {
             //第一个参数 对象类型 因为方法是static静态的 所以为null可以 第二个参数是String数组
             // 这里要注意在jdk1.4时是数组 jdk1.5之后是可变参数
             //这里拆的时候将  new String[]{"a","b","c"} 拆成3个对象。。。所以需要将它强转
-            methodMain.invoke(null, (Object)new String[]{"a","b","c"});
+            methodMain.invoke(null, (Object) new String[]{"a", "b", "c"});
             //方式一
             // methodMain.invoke(null, new Object[]{new String[]{"a","b","c"}});
             // 方式二
@@ -365,21 +365,22 @@ public class ReflectTest {
     @Test
     public void testArrayIn() throws ClassNotFoundException {
         Class<?> cls = Class.forName("java.lang.String");
-        Object array = Array.newInstance(cls,25);
+        Object array = Array.newInstance(cls, 25);
         //往数组里添加内容
-        Array.set(array,0,"hello");
-        Array.set(array,1,"Java");
-        Array.set(array,2,"fuck");
-        Array.set(array,3,"Scala");
-        Array.set(array,4,"Clojure");
+        Array.set(array, 0, "hello");
+        Array.set(array, 1, "Java");
+        Array.set(array, 2, "fuck");
+        Array.set(array, 3, "Scala");
+        Array.set(array, 4, "Clojure");
         //获取某一项的内容
-        System.out.println(Array.get(array,3));
+        System.out.println(Array.get(array, 3));
 
     }
 
     /**
      * 我们利用反射和配置文件 可以使: 应用程序更新时 对源码无需进行任何修改
      * 我们只需要将新类发送给客户端 并修改配置文件即可
+     *
      * @throws Exception
      */
 
@@ -409,11 +410,12 @@ public class ReflectTest {
     /**
      * 通过反射越过泛型检查
      * 例如 有一个String泛型的集合 怎样能向这个集合中添加一个Integer类型的值？
+     *
      * @throws Exception
      */
 
     @Test
-    public void genericCity() throws Exception{
+    public void genericCity() throws Exception {
         ArrayList<String> strList = new ArrayList<>();
         strList.add("aaa");
         strList.add("bbb");
@@ -428,11 +430,10 @@ public class ReflectTest {
         m.invoke(strList, 100);
 
         //遍历集合
-        for(Object obj : strList){
+        for (Object obj : strList) {
             System.out.println(obj);
         }
     }
-
 
 
 }

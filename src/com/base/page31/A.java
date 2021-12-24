@@ -9,10 +9,12 @@ package com.base.page31;
  */
 public class A {
     private static A a = new A();
+
     static {
         System.out.print("static ");
     }
-    public A(){
+
+    public A() {
         System.out.print("A ");
     }
 }

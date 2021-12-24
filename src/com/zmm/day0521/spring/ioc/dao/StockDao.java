@@ -7,10 +7,11 @@ package com.zmm.day0521.spring.ioc.dao;
  */
 public interface StockDao {
 
-	/**
-	 * 减库存
-	 * @param name
-	 * @return
-	 */
-	void subStock(String name);
+    /**
+     * 减库存
+     *
+     * @param name
+     * @return
+     */
+    void subStock(String name);
 }

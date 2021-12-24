@@ -36,17 +36,15 @@ public class ExceptionTest {
 
     /**
      * Question 3 Java 异常体系描述一下
-     *  Throwable 是由 错误(Error) 或者 异常的超类(Exception)
-     *      Error 是由 VirtualMachineError 和 AWTError 组成
-     *      Exception 是由 IOException 和 RuntimeException 组成
-     *          IOException 是由 EOFException 和 FileNotFoundException 组成
-     *          RuntimeException 是由 ClassCastException 、IndexOutBoundsException、NumberFormatException、NullPointerException、
-     *                              ArrayStoreException(数据存储异常,操作数组时类型不一致)....
-     *
-     *
+     * Throwable 是由 错误(Error) 或者 异常的超类(Exception)
+     * Error 是由 VirtualMachineError 和 AWTError 组成
+     * Exception 是由 IOException 和 RuntimeException 组成
+     * IOException 是由 EOFException 和 FileNotFoundException 组成
+     * RuntimeException 是由 ClassCastException 、IndexOutBoundsException、NumberFormatException、NullPointerException、
+     * ArrayStoreException(数据存储异常,操作数组时类型不一致)....
      */
     @Test
-    public void test(){
+    public void test() {
 
     }
 }

@@ -9,10 +9,11 @@ import com.zmm.day0521.spring.ioc.pojo.Order;
  */
 public interface OrderService {
 
-	/**
-	 * 下单
-	 * @param order
-	 */
-	void order(Order order);
+    /**
+     * 下单
+     *
+     * @param order
+     */
+    void order(Order order);
 
 }

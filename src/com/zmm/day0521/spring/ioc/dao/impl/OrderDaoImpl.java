@@ -10,8 +10,8 @@ import com.zmm.day0521.spring.ioc.pojo.Order;
  */
 public class OrderDaoImpl implements OrderDao {
 
-	@Override
-	public void save(Order order) {
-		System.out.println("订单Id:" + order.getOrderId() + "保存成功");
-	}
+    @Override
+    public void save(Order order) {
+        System.out.println("订单Id:" + order.getOrderId() + "保存成功");
+    }
 }

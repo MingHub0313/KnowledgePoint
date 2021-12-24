@@ -7,26 +7,26 @@ package com.zmm.day0701.realize.extend;
  */
 public class Outter {
 
-	private class InnerClassA  extends A {
-		public String name() {
-			return super.getName();
-		}
-	}
+    private class InnerClassA extends A {
+        public String name() {
+            return super.getName();
+        }
+    }
 
-	private class InnerClassB extends B {
-		public int age() {
-			return super.getAge();
-		}
-	}
+    private class InnerClassB extends B {
+        public int age() {
+            return super.getAge();
+        }
+    }
 
 
-	public String name() {
-		return new InnerClassA().name();
-	}
+    public String name() {
+        return new InnerClassA().name();
+    }
 
-	public int age() {
-		return new InnerClassB().age();
-	}
+    public int age() {
+        return new InnerClassB().age();
+    }
 
 
 }

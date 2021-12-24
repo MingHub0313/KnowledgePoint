@@ -7,23 +7,23 @@ package com.zmm.day0516.enums;
  */
 public enum IntegerEnum {
 
-	NUMBER_0(0),
-	NUMBER_1(1),
-	NUMBER_2(2),
-	NUMBER_3(3),
-	;
-	private Integer    number;
+    NUMBER_0(0),
+    NUMBER_1(1),
+    NUMBER_2(2),
+    NUMBER_3(3),
+    ;
+    private Integer number;
 
-	IntegerEnum(Integer number) {
-		this.number = number;
+    IntegerEnum(Integer number) {
+        this.number = number;
 
-	}
+    }
 
-	public Integer getNumber() {
-		return number;
-	}
+    public Integer getNumber() {
+        return number;
+    }
 
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
 }

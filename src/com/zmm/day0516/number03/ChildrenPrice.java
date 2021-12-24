@@ -10,22 +10,22 @@ import com.zmm.day0516.enums.IntegerEnum;
  */
 public class ChildrenPrice extends Price {
 
-	@Override
-	int getPriceCode() {
-		return Movie.CHILD_SLICE;
-	}
+    @Override
+    int getPriceCode() {
+        return Movie.CHILD_SLICE;
+    }
 
-	@Override
-	double getCharge(int daysRented){
-		double result = DoubleEnum.NUMBER_1_5.getNumber();
-		if (daysRented > Movie.CHILD_SLICE){
-			result +=(daysRented- IntegerEnum.NUMBER_3.getNumber()) * DoubleEnum.NUMBER_1_5.getNumber();
-		}
-		return  result;
-	}
+    @Override
+    double getCharge(int daysRented) {
+        double result = DoubleEnum.NUMBER_1_5.getNumber();
+        if (daysRented > Movie.CHILD_SLICE) {
+            result += (daysRented - IntegerEnum.NUMBER_3.getNumber()) * DoubleEnum.NUMBER_1_5.getNumber();
+        }
+        return result;
+    }
 
-	@Override
-	int getFrequentRenterPoints(int daysRented){
-		return IntegerEnum.NUMBER_1.getNumber();
-	}
+    @Override
+    int getFrequentRenterPoints(int daysRented) {
+        return IntegerEnum.NUMBER_1.getNumber();
+    }
 }

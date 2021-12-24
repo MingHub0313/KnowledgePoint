@@ -7,9 +7,10 @@ package com.zmm.day0701.realize.extend;
  */
 public class A {
 
-	private String name = "A类的私有域";
-	public String getName() {
-		return name;
-	}
+    private String name = "A类的私有域";
+
+    public String getName() {
+        return name;
+    }
 
 }

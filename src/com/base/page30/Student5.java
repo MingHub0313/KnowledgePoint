@@ -8,8 +8,8 @@ package com.base.page30;
  * @Version 5.0.0
  */
 public class Student5 {
-    
-    public void show(){
+
+    public void show() {
         System.out.println("is show()");
     }
 }

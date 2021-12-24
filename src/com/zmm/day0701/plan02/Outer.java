@@ -7,16 +7,17 @@ package com.zmm.day0701.plan02;
  */
 public class Outer {
 
-	private String outStr ="Outer中的字符串";
-	public String getOutStr() {
-		return outStr;
-	}
+    private String outStr = "Outer中的字符串";
+
+    public String getOutStr() {
+        return outStr;
+    }
 
 
-	public void fun(){  /** 2 */
-		//this表示当前对象
-		/** 3 */
-		Inner in = new Inner(this);
-		in.print();                /** 5 */
-	}
+    public void fun() {  /** 2 */
+        //this表示当前对象
+        /** 3 */
+        Inner in = new Inner(this);
+        in.print();                /** 5 */
+    }
 }

@@ -11,22 +11,22 @@ import com.zmm.day0516.enums.IntegerEnum;
 public class RegularPrice extends Price {
 
 
-	@Override
-	int getPriceCode() {
-		return Movie.REGULAR;
-	}
+    @Override
+    int getPriceCode() {
+        return Movie.REGULAR;
+    }
 
-	@Override
-	double getCharge(int daysRented){
-		double result =DoubleEnum.NUMBER_2.getNumber();
-		if (daysRented > Movie.REGULAR){
-			result +=(daysRented- IntegerEnum.NUMBER_2.getNumber()) * DoubleEnum.NUMBER_1_5.getNumber();
-		}
-		return  result;
-	}
+    @Override
+    double getCharge(int daysRented) {
+        double result = DoubleEnum.NUMBER_2.getNumber();
+        if (daysRented > Movie.REGULAR) {
+            result += (daysRented - IntegerEnum.NUMBER_2.getNumber()) * DoubleEnum.NUMBER_1_5.getNumber();
+        }
+        return result;
+    }
 
-	@Override
-	int getFrequentRenterPoints(int daysRented){
-		return IntegerEnum.NUMBER_1.getNumber();
-	}
+    @Override
+    int getFrequentRenterPoints(int daysRented) {
+        return IntegerEnum.NUMBER_1.getNumber();
+    }
 }

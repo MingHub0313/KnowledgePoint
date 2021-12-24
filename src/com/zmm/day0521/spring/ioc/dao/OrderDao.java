@@ -9,10 +9,11 @@ import com.zmm.day0521.spring.ioc.pojo.Order;
  */
 public interface OrderDao {
 
-	/**
-	 * 保存订单详情
-	 * @param order
-	 * @return
-	 */
-	void save(Order order);
+    /**
+     * 保存订单详情
+     *
+     * @param order
+     * @return
+     */
+    void save(Order order);
 }

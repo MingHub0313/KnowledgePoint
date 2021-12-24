@@ -18,7 +18,7 @@ public class ReadByteTest {
      */
 
     @Test
-    public void test(){
+    public void test() {
 
         String fileName = "F:\\study_java\\KnowledgePoint\\resources\\newTemp.txt.txt";
         //readFileByBytes(fileName);
@@ -30,7 +30,7 @@ public class ReadByteTest {
 
     public static void readFileByBytes(String fileName) {
         long startTime = System.currentTimeMillis();
-        System.out.println("第一次开始时间:"+startTime);
+        System.out.println("第一次开始时间:" + startTime);
         File file = new File(fileName);
         InputStream in = null;
         try {
@@ -48,8 +48,8 @@ public class ReadByteTest {
         }
         long midTime = System.currentTimeMillis();
         System.out.println();
-        System.out.println("第一次结束时间(第二次开始时间):"+midTime);
-        System.out.println("一次读一个字节 一共花费时间:"+ (midTime-startTime));
+        System.out.println("第一次结束时间(第二次开始时间):" + midTime);
+        System.out.println("一次读一个字节 一共花费时间:" + (midTime - startTime));
         try {
             System.out.println("================");
             System.out.println("以字节为单位读取文件内容，一次读多个字节：");
@@ -74,8 +74,8 @@ public class ReadByteTest {
         }
         long endTime = System.currentTimeMillis();
         System.out.println();
-        System.out.println("第二次结束时间:"+endTime);
-        System.out.println("一次读多个字节 一共花费时间:"+(endTime-midTime));
+        System.out.println("第二次结束时间:" + endTime);
+        System.out.println("一次读多个字节 一共花费时间:" + (endTime - midTime));
 
     }
 

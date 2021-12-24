@@ -9,8 +9,8 @@ import com.zmm.day0521.spring.ioc.dao.StockDao;
  */
 public class StockDaoImpl implements StockDao {
 
-	@Override
-	public void subStock(String name) {
-		System.out.println("商品:" + name + " 库存扣减成功");
-	}
+    @Override
+    public void subStock(String name) {
+        System.out.println("商品:" + name + " 库存扣减成功");
+    }
 }

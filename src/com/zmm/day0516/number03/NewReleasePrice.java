@@ -9,18 +9,18 @@ import com.zmm.day0516.enums.IntegerEnum;
  */
 public class NewReleasePrice extends Price {
 
-	@Override
-	int getPriceCode() {
-		return Movie.NEW_RELEASE;
-	}
+    @Override
+    int getPriceCode() {
+        return Movie.NEW_RELEASE;
+    }
 
-	@Override
-	double getCharge(int daysRented){
-		return  daysRented*IntegerEnum.NUMBER_3.getNumber();
-	}
+    @Override
+    double getCharge(int daysRented) {
+        return daysRented * IntegerEnum.NUMBER_3.getNumber();
+    }
 
-	@Override
-	int getFrequentRenterPoints(int daysRented){
-		return (daysRented>IntegerEnum.NUMBER_1.getNumber()?IntegerEnum.NUMBER_2.getNumber():IntegerEnum.NUMBER_1.getNumber());
-	}
+    @Override
+    int getFrequentRenterPoints(int daysRented) {
+        return (daysRented > IntegerEnum.NUMBER_1.getNumber() ? IntegerEnum.NUMBER_2.getNumber() : IntegerEnum.NUMBER_1.getNumber());
+    }
 }

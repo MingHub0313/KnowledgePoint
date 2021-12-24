@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class SuperClass {
 
-    public void method()throws IOException {
+    public void method() throws IOException {
         System.out.println(" 父类 --> hello");
     }
 }

@@ -9,10 +9,10 @@ import org.junit.Test;
  */
 public class Controller {
 
-	@Test
-	public void testLabel(){
-		ShareModel shareModel = new ShareModel();
+    @Test
+    public void testLabel() {
+        ShareModel shareModel = new ShareModel();
 
-		shareModel.getLabelList().add(new Label("哈哈",0));
-	}
+        shareModel.getLabelList().add(new Label("哈哈", 0));
+    }
 }

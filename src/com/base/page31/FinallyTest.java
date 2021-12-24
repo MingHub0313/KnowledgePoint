@@ -20,18 +20,18 @@ public class FinallyTest {
     /**
      * Question 1. finally 代码块 和 finalize() 方法有什么区别?
      * 答案 : 无论是否抛出异常 finally 代码块都会执行 它主要是用来 释放应用占用的资源
-     *  finalize() 方法是 Object类中的一个 protected方法 它是在对象被垃圾回收之前由Java 虚拟机来调用的.
+     * finalize() 方法是 Object类中的一个 protected方法 它是在对象被垃圾回收之前由Java 虚拟机来调用的.
      */
 
     @Test
-    public void test(){
+    public void test() {
 
         Integer a = execute1();
-        System.out.println("a="+a);
+        System.out.println("a=" + a);
         // a = 40
 
         Integer b = execute2();
-        System.out.println("b="+b);
+        System.out.println("b=" + b);
         // 方法中的b:40
         // b =26
 
@@ -39,14 +39,15 @@ public class FinallyTest {
 
     /**
      * 如果 finally 中有 return 则 返回的是 finally中修改过后的
+     *
      * @return
      */
     private Integer execute1() {
         Integer a = 23;
-        try{
+        try {
             a += 3;
             return a;
-        }finally {
+        } finally {
             a = 40;
             return a;
         }
@@ -54,16 +55,17 @@ public class FinallyTest {
 
     /**
      * 如果 finally 没有 return 则 执行 try 中的 return 值任然是try 中的
+     *
      * @return
      */
     private Integer execute2() {
         Integer b = 23;
-        try{
+        try {
             b += 3;
             return b;
-        }finally {
+        } finally {
             b = 40;
-            System.out.println("方法中的b:"+b);
+            System.out.println("方法中的b:" + b);
         }
     }
 }

@@ -9,15 +9,15 @@ package com.base.page30;
  */
 public class Student2 {
 
-    public Student2(){
+    public Student2() {
 
     }
+
     //**********字段*************//
     public String name;
     protected int age;
     char sex;
     private String phoneNum;
-
 
 
     @Override
