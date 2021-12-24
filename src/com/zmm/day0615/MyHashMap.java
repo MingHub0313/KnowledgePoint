@@ -1,5 +1,6 @@
 package com.zmm.day0615;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 /**
@@ -9,14 +10,131 @@ import java.util.Objects;
  */
 public class MyHashMap<K, V> implements MyMap<K, V> {
 
-    /**
-     * 根据Hash 算法实现,理论上只需要一次查询即可定位到指定数据 (Hash 冲突)
-     * 1.需要 存储数据的 Entry 对象
-     * 2.定义 Entry  类型的数组 默认长度为 16
-     * 3.put 也有可能是修改
-     * 4.扩容 性能是很低下的
-     * 总结 :
-     */
+
+	/**
+	 * HashMap 类中有以下主要成员变量：
+	 * ● 	transient int size;
+	 * 		○记录 Map 中 K-V(键值对)对的个数
+	 * ●	loadFactor
+	 * 		○ 装载因子 用来衡量 HashMap 满的程度。loadFactor 的默认值为 0.75f
+	 * 			(static final float DEFAULT_LOAD_FACTOR = 0.75f;)
+	 * ● 	int threshold;
+	 * 		○ 临界值 当实际 KV 个数超过 threshold 时 HashMap 会将容量扩容 threshold ＝ 容量 * 加载因子
+	 * 			(static final int TREE_THRESHOLD = 8;)
+	 * ●	capacity;
+	 * 		○ 容量 如果不指定 默认容量是 16
+	 * 			(static final int DEFAULT_INITIAL_CAPACITY = 1 << 4;)
+	 *
+	 * 	CASE1:	HashMap 中的size 和 capacity 之间的区别:
+	 * 		HashMap就像是一个 "桶",那么 capacity 就是这个 "桶" ,当前最多可以装多少元素,而 size 表示这个桶已经装了多少元素.
+	 *
+	 * 	如果开发者通过构造函数之指定一个数字作为容量,那么Hash会选择大于该数字的第一个 2的幂 作为容量.
+	 * 		(1 -> 1、7 -> 8、9 -> 16)
+	 *
+	 * 	CASE2:	loadFactor 和 threshold:
+	 * 		HashMap有扩容机制,就是当达到扩容条件时会进行扩容,从16扩容到32、64、128...
+	 * 		当 HashMap 中的元素个数(size)超过临界值(threshold)时就会自动扩容.
+	 * 			threshold = loadFactor * capacity.
+	 *
+	 * 		loadFactor 是装载因子,表示 HashMap 满的程度,默认值为 0.75f
+	 * 		设置成 0.75有一个好处,那就是0.75 正好是 3/4 ,而 capacity 又是 2的幂.所以 两个数的乘积都是整数.
+	 *
+	 * 	CASE3:	为什么要设置 HashMap 的初始化容量
+	 * 		如果没有设置初始容量大小,随着元素的不断增加,HashMap 会发生多次扩容,而 HashMap 中的扩容机制决定了每次扩容
+	 * 		都需要重建hash表,是非常影响性能的.
+	 *
+	 * 	CASE4:	HashMap 中容量的初始化
+	 * 		默认情况下,当我们设置 HashMap 的初始化容量时,实际上 HashMap 会采用第一个大于该数值的 2的幂 作为初始化容量.
+	 * 		当我们通过 HashMap(int initialCapacity) 设置初始化容量的时候, HashMap 也不一定会直接采用我们传入的数值,而是经过计算
+	 * 		得到一个新值,目的是提高 hash 的效率 (1 -> 1、7 -> 8、9 -> 16).
+	 * 		【在 JDK1.7和 JDK1.8中,HashMap初始化这个容量的时机不同】:
+	 * 			JDK1.8: 在调用 HashMap 的构造函数定义 HashMap 的时候,就会进行容量的设定
+	 * 			JDK1.7:	要等到第一次 put 操作时才进行这一操作.
+	 * 		但不论是什么版本 在计算初始化容量的算法如出一辙,主要:
+	 * 		int n = cap - 1;
+	 * 		n |= n >>> 1;   // 先进行右移一位(即减一),然后再 或 运算 [运算规则：0|0=0;  0|1=1;  1|0=1;  1|1=1;]
+	 *
+	 * 		例: 5->8、9->16、19->32、37->64
+	 *
+	 * 		5	0000	0000	0000	0101
+	 * 		7	0000	0000	0000	0111		Step 1，5->7
+	 * 		8	0000	0000	0000	1000		Step 2，7->8
+	 *
+	 * 		9	0000	0000	0000	1001
+	 * 		15	0000	0000	0000	1111		Step 1，9->15
+	 * 		16	0000	0000	0001	0000		Step 2，15->16
+	 *
+	 * 		19	0000	0000	0001	0011
+	 * 		31	0000	0000	0001	1111		Step 1，19->31
+	 * 		32	0000	0000	0010	0000		Step 2，31->32
+	 *
+	 * 		37	0000	0000	0010	0101
+	 * 		63	0000	0000	0011	1111		Step 1，37->63
+	 * 		64	0000	0000	0100	0000		Step 2，63->64
+	 *
+	 * 		特殊情况不能套用该公式:该数本身就是 2 的幂自身.【为了让所有的数都满足公式,将参数先减 一 然后再套用公式】
+	 * 		对应 Step 1的代码实现:
+	 * 			n |= n >>> 1;
+	 * 			n |= n >>> 2;
+	 * 			n |= n >>> 4;
+	 * 			n |= n >>> 8;
+	 * 			n |= n >>> 16;
+	 * 			说明:对一个二进制数依次向右移位,然后与原值取或.【其目的对于一个数字的二进制,从第一个不为0的位开始,把后面的所有位都设置成1】
+	 * 		对应 Step 2的代码实现:
+	 * 			return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+	 * 			说明:极限值判断,然后把 Step1 得到的数值 + 1.
+	 *
+	 *
+	 * 		十进制    0		  1		  2		  3		  4		  5		  6		  7		  8		  9
+	 * 		二进制	0000	0001	0010	0011	0100	0101	0110	0111	1000	1001
+	 *
+	 * 	CASE5:	HashMap初始化容量设置多少合适
+	 * 		根据《阿里巴巴开发手册》中推荐 使用 HashMap(int initialCapacity) 初始化.
+	 * 		那么到底初始化的时候,要指定多少合适呢?
+	 * 		1).塞多少个元素就设置成多少的容量.	比如准备塞 7 个元素 ,那就 new HashMap(7).
+	 * 			但是阅读源码就会知道我们传入的参数不一定就是 HashMap的容量,因为代码中还会重新计算出最符合的数值.
+	 *
+	 * 		2).	JDK会默认帮我们计算一个相对合理的值当作初始容量(合理值:找到第一个比用户传入的值大的2的幂)
+	 * 			此时我们还需要注意一个参数 loadFactor(负载因子),当 HashMap 的元素个数(size)超过	threshold = loadFactor * capacity;
+	 * 			也就是说,如果我们设置的默认值是7,经过 JDK处理之后, HashMap 的容量会被设置成 8 ,但是,
+	 * 			这个 HashMap 在元素达到 8 * 0.75 = 6 的时候就会进行一次扩容,这明显是我们不希望见到的.
+	 *
+	 * 		参考 JDK8 中的 putAll 方法中实现的算法:
+	 * 			(int) ((float) expectedSize / loadFactor + 1.0F);
+	 * 			比如我们计划向 HashMap 中放入 7 个元素的时候,我们通过算法得到 7 / 0.075 + 1 = 10,
+	 * 			10 经过JDK处理之后,会被设置成 16 ,这就大大的减少了扩容的几率.
+	 *
+	 * 		当 HashMap 内部维护的哈希表的容量达到 75%时(默认情况下),会触发 rehash,而 rehash的过程是比较耗费时间的.
+	 * 		使用这个公式可以有效的减少冲突也可以减小误差.
+	 *
+	 */
+
+
+	static final int MAXIMUM_CAPACITY = 1 << 30;
+
+	public static void main(String[] args) {
+
+		HashMap<String, String> hashMap = Maps.newHashMapWithExpectedSize(2);
+		//特殊情况 这些数本身就是 2 的幂自身 套用公式就会出现错误. --->先将传参减一
+		int n = 9-1;
+		n |= n >>> 1;
+		n |= n >>> 2;
+		n |= n >>> 4;
+		n |= n >>> 8;
+		n |= n >>> 16;
+		//【其目的对于一个数字的二进制,从第一个不为0的位开始,把后面的所有位都设置成1】
+		int m = (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+    	System.out.println(m);
+	}
+
+	/**
+	 * 根据Hash 算法实现,理论上只需要一次查询即可定位到指定数据 (Hash 冲突)
+	 * 1.需要 存储数据的 Entry 对象
+	 * 2.定义 Entry  类型的数组 默认长度为 16
+	 * 3.put 也有可能是修改
+	 * 4.扩容 性能是很低下的
+	 * 总结 :
+	 */
 
     /**
      * 第二步  用于存放 Entry 数据   --->为什么直接定义好16的长度? 可以先不定义好 ,在进行插入值/或者初始化时定义
